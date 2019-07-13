@@ -9,7 +9,7 @@ public class Board {
     private int[][] board;
 
     /**
-     * Creats a new instance of a board class
+     * Creates a new instance of a board class
      */
     public Board(){
         size = 9;
@@ -17,7 +17,7 @@ public class Board {
     }
 
     /**
-     * Creats a new instance of a board class
+     * Creates a new instance of a board class
      *
      * @param board is a 2d integer list
      */
@@ -31,7 +31,7 @@ public class Board {
      *
      * @param x the row in which the value we want is in
      * @param y the col in which the value we want is in
-     * @return
+     * @return the value of the board at the given position
      */
     public int getVal(int x, int y) {
         return board[x][y];
@@ -55,25 +55,6 @@ public class Board {
      */
     public int getSize(){
         return size;
-    }
-
-    /**
-     * Used as a test board
-     */
-    public void testInitalise(){
-
-        int[][] board = {{5,0,0,4,0,0,0,2,1},
-                         {1,0,0,0,6,8,0,4,0},
-                         {0,0,8,2,1,3,0,0,0},
-                         {3,0,0,0,4,0,0,6,0},
-                         {0,6,5,0,0,0,9,3,0},
-                         {0,1,0,0,3,0,0,0,8},
-                         {0,0,0,3,5,1,2,0,0},
-                         {0,9,0,7,8,0,0,0,6},
-                         {7,5,0,0,0,2,0,0,3}};
-
-        this.board = board;
-
     }
 
     /**

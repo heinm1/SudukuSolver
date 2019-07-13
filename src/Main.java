@@ -1,5 +1,4 @@
-import Controler.GameControler;
-import View.PuzzleView;
+import Controler.GameController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,12 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage notUsed) throws Exception {
-
-        PuzzleView primaryStage = new PuzzleView();
-
-        GameControler gameControler = new GameControler(primaryStage);
-
-        primaryStage.show();
+        new GameController();
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 package Controler;
 
 import Modle.Board;
-import Modle.SudukuSolver;
+import Modle.SudokuSolver;
 import View.PuzzleView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,27 +12,29 @@ import javafx.scene.control.TextField;
  * Created by maxhein on 16/01/2018.
  */
 
-public class GameControler {
+public class GameController {
 
     private Button solveButton;
     private Button resetButton;
     private PuzzleView puzzleView;
 
     /**
-     * Creates a controler for the PuzzleView stage
-     *
-     * @param primaryStage An instance of the PuzzleView
+     * Creates a controller for the sudoku game
      */
-    public GameControler(PuzzleView primaryStage){
+    public GameController(){
 
-        puzzleView = primaryStage;
+        puzzleView = new PuzzleView();
         solveButton = puzzleView.getSolveButton();
         resetButton = puzzleView.getResetButton();
+
         setSolveButtonActionEvent();
         setResetButtonAction();
 
+        puzzleView.show();
+
     }
 
+    // Adds an action to clear the contents of the board view
     private void setResetButtonAction(){
         resetButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -48,6 +50,7 @@ public class GameControler {
         });
     }
 
+    // adds an action to solve the current state of the board view
     private void setSolveButtonActionEvent() {
         solveButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -56,7 +59,7 @@ public class GameControler {
                 System.out.println("Solving ...");
                 System.out.println("");
 
-                SudukuSolver sudukuSolver = new SudukuSolver();
+                SudokuSolver sudukuSolver = new SudokuSolver();
                 Board board = new Board(format(puzzleView.getGrid()));
                 try{
                     if(sudukuSolver.solveBoard(board))
@@ -70,6 +73,7 @@ public class GameControler {
         });
     }
 
+    // converts the grid of text fields into am int grid
     private int[][] format(TextField[][] grid){
 
         int[][] b = new int[9][9];
@@ -89,6 +93,7 @@ public class GameControler {
         return b;
     }
 
+    // updates the text fields with the contents of the given int grid
     private void updateGrid(Board board){
 
         for(int i = 0; i < 9; ++i){

@@ -3,54 +3,55 @@ package Modle;
 /**
  * Created by maxhein on 17/01/2018.
  */
-public class SudukuSolver {
+public class SudokuSolver {
 
+    // Stores the solved board
     private Board board;
 
     /**
-     *  Creats a new board class
+     *  Creates a new board class
      */
-    public SudukuSolver(){
+    public SudokuSolver(){
         board = new Board();
     }
 
     /**
-     *  Solves a board, according to the suduku rules. Uses backtracking
+     *  Solves a board, according to the sudoku rules. Uses backtracking
      *
      * @param b is a 9x9 Board
-     * @return a boolean true or false depending if it was sucsessfull or not
+     * @return a boolean true or false depending if it was successful or not
      */
     public boolean solveBoard(Board b){
 
-        int r = -1;
-        int c = -1;
+        int row = -1;
+        int col = -1;
 
-        //gets the first instance in the board where there is now assigned value
-        //r and c are assigned to these values
+        // gets the first instance in the board where there is now assigned value
+        // row and col are assigned to these values
         int[] t = getNext(b);
-        r = t[0];
-        c = t[1];
+        row = t[0];
+        col = t[1];
 
-        //if all board positions are assigned it is solved, return.
-        if(r == -1 && c == -1){
+        // if all board positions are assigned it is solved, return.
+        if(row == -1 && col == -1){
             board = b;
             System.out.println(b);
             return true;
         }
 
-        //try to assign a number from 1 to 9 to the unassigned position
+        // try to assign a number from 1 to 9 to the unassigned position
         for(int num = 1; num <= 9; ++num){
 
-            //checks if the number we are trying to assign is allowd by the rules of suduku
-            if(isSafe(b,r,c,num)){
-                b.setVal(r,c,num);
+            // checks if the number we are trying to assign is allowed by the rules of sudoku
+            if(isSafe(b,row,col,num)){
+                b.setVal(row,col,num);
 
-                //check if this iteration if the board results in a solved one
-                //and if so return it. Else try another iteration
+                // check if this iteration if the board results in a solved one
+                // and if so return it. Else try another iteration
                 if (solveBoard(b)) {
                     board = b;
                     return true;
-                } else { b.setVal(r,c,0); }
+                } else { b.setVal(row,col,0); }
 
             }
         }
@@ -58,31 +59,26 @@ public class SudukuSolver {
 
     }
 
-    //finds the next unasign location in the board
+    // finds the next unassigned location in the board
     private int[] getNext(Board b){
         for(int i = 0; i < 9; ++i){
             for(int j = 0; j < 9; ++j){
                 if(b.getVal(i,j) == 0) {
-                    int[] temp = {i, j};
-                    return temp;
+                    return new int[]{i, j};
                 }
             }
         }
-        int[] temp = {-1, -1};
-        return temp;
+        return new int[]{-1, -1};
     }
 
-    //checks if the value is leagal by checking the row, col and box
+    // if the value is legal by checking the row, col and box
     private boolean isSafe(Board b, int row, int col, int num){
 
-        if(checkRowCol(b,row,col,num) && checkBox(b,row,col,num))
-            return true;
-        else
-            return false;
+        return checkRowCol(b,row,col,num) && checkBox(b,row,col,num);
 
     }
 
-    //checks the row and col
+    // checks the row and col
     private boolean checkRowCol(Board b, int row, int col, int num){
         for(int i = 0; i < 9; ++i){
             if(b.getVal(row,i) == num) return false;
@@ -91,7 +87,7 @@ public class SudukuSolver {
         return true;
     }
 
-    //checks the box
+    // checks the 3x3 box for the given cell
     private boolean checkBox(Board b, int row, int col, int num){
         int i1 = (row/3)*3;
         int i2 = i1+2;
@@ -107,7 +103,7 @@ public class SudukuSolver {
     }
 
     /**
-     * returns the current state of the board (Compleat, empty)
+     * returns the current state of the board (complete, empty)
      *
      * @return a Board Object
      */

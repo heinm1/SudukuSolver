@@ -22,27 +22,13 @@ public class PuzzleView extends Stage {
 
         grid = new TextField[9][9];
 
-        solveButton = new Button();
-        solveButton.setPrefSize(225,50);
-        solveButton.setText("Solve");
-
-        resetButton = new Button();
-        resetButton.setPrefSize(225,50);
-        resetButton.setText("Reset");
+        setUpSolveButton();
+        setUpResetButton();
 
         BorderPane screen = new BorderPane();
-        GridPane boardView = new GridPane();
         HBox hbox = new HBox();
 
-        for(int r = 0; r < 9; ++r){
-            for(int c = 0; c < 9; ++c) {
-                boardView.add(getNewBox(r,c),r,c);
-            }
-        }
-
-        boardView.setGridLinesVisible(true);
-
-        screen.setCenter(boardView);
+        screen.setCenter(setUpGrid());
         hbox.getChildren().addAll(solveButton,resetButton);
         screen.setBottom(hbox);
 
@@ -52,12 +38,35 @@ public class PuzzleView extends Stage {
         this.setResizable(false);
     }
 
-    private TextField getNewBox(int r, int c){
+    private void setUpSolveButton() {
+        solveButton = new Button();
+        solveButton.setPrefSize(225,50);
+        solveButton.setText("Solve");
+    }
+
+    private void setUpResetButton() {
+        resetButton = new Button();
+        resetButton.setPrefSize(225,50);
+        resetButton.setText("Reset");
+    }
+
+    private GridPane setUpGrid() {
+        GridPane boardView = new GridPane();
+        for(int row = 0; row < 9; ++row){
+            for(int col = 0; col < 9; ++col) {
+                boardView.add(getNewBox(row,col),row,col);
+            }
+        }
+        boardView.setGridLinesVisible(true);
+        return boardView;
+    }
+
+    private TextField getNewBox(int row, int col){
         TextField text = new TextField();
         text.setPrefSize(50.0,50.0);
         text.setAlignment(Pos.CENTER);
 
-        grid[r][c] = text;
+        grid[row][col] = text;
 
         return text;
     }
